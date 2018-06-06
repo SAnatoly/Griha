@@ -7,11 +7,14 @@ public class Player : MonoBehaviour {
     public float speed = 0.7f;
     public float rotSpeed = 100;
     public float jumpSpeed = 300;
+    GameController gameController;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start ()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -28,7 +31,7 @@ public class Player : MonoBehaviour {
             movY = jumpSpeed * Time.deltaTime;
         }
 
-        transform.Translate(movX, movY, movZ); // перемещение объекта ( управоление колавишами )
+        transform.Translate(0, movY, movZ); // перемещение объекта ( управоление колавишами )
             transform.Rotate(0, rotY, 0); // поворот игрока
         
         
@@ -40,7 +43,22 @@ public class Player : MonoBehaviour {
         {
             Debug.Log("You die");
             GetComponent<Renderer>().material.color = Color.red; // меняет цвет объекта
-            Time.timeScale = 0; // останавливает время
+            //Time.timeScale = 0; // останавливает время
+            gameController.Lose();
+            enabled = false;
+        }
+
+     
+    }
+
+     void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Finish") // папроверяем объект столкновения на соответствие (если предмет коснулся объект с тегом Emeny)
+        {
+          
+           // Time.timeScale = 0; // останавливает время
+            gameController.Win();
+            enabled = false;
         }
     }
 }
