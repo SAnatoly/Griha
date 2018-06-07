@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
         if(collision.gameObject.tag == "Enemy") // папроверяем объект столкновения на соответствие (если предмет коснулся объект с тегом Emeny)
         {
             Debug.Log("You die");
-            GetComponent<Renderer>().material.color = Color.red; // меняет цвет объекта
+            //GetComponent<Renderer>().material.color = Color.red; // меняет цвет объекта
             //Time.timeScale = 0; // останавливает время
             gameController.Lose();
             enabled = false;
